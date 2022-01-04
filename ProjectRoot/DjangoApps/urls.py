@@ -28,7 +28,8 @@ urlpatterns = [
     
     
     #방법 2 : 2개의 파일에 작성   
-    path('livepolls/', include('livepolls.urls')),
+    path('livepolls/', include('livepolls.urls')), #앱1 : 설문관리 앱
+    path('tempapps/', include('tempapps.urls')), #앱2 : 템플릿 문법 앱
 ]
 
 '''
