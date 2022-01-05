@@ -1,0 +1,21 @@
+{% extends 'base_books.html' %}
+
+{% block content %}
+    <h2>Book List</h2>
+    <ul>
+        <li>
+            Authors : 
+            <!-- 저자의 경우 공저의 개념이 있어 하나의 책을 두명 이상의
+            저자가 공동집필하는 경우가 있다. 
+            따라서 아래는 object에 연결된 authors모두를 가져와 출력한다. -->
+            {% for author in object.authors.all %}
+                {{ author }}
+                <!-- 저자가 출력할 때 마지막이 아닌경우에만 콤마를 출력한다.
+                즉 마지막에는 콤마를 출력하지 않는다 -->
+                {% if not forloop.last %}, {% else %}{% endif %}
+            {% endfor %}
+        </li>
+        <li>Publisher : {{ object.publisher }}</li>
+        <li>Publication date : {{ object.publication_date }}</li>
+    </ul>
+{% endblock content %}

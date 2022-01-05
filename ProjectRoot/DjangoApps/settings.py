@@ -41,6 +41,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 앱1 : 설문관리앱
 앱2 : 템플릿 문법앱
+앱3 : 도서관리 앱
 '''
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'livepolls.apps.LivepollsConfig',###앱1
     'tempapps.apps.TempappsConfig', ###앱2
+    'books.apps.BooksConfig', ###앱3
 ]
 
 MIDDLEWARE = [

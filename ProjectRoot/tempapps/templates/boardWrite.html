@@ -13,6 +13,18 @@
     	*{font-size: 12px;}
         .w100{width: 100px;}
         .w200{width: 200px;}
+		/* 
+		태그선택 방법1]
+		웹브라우저의 개발자모드(f12)에서 인스펙트를 통해 복사한 셀렉터로 스타일 부여
+		(경로를 가져오려면 원하는 항목의 copy-copy selector하면됨)
+		*/
+		body > div > div:nth-child(2) > div.col-9.pt-3 > form > table > tbody > tr > th{
+			text-align: center;vertical-align: middle;
+		}
+		/*
+		태그선택 방법2]
+		테이블에 id속성을 부여한 후 하위 th태그 전체를 선택하여 스타일 부여*/
+		#writeTable tr th{color: tomato}
 	</style>
 </head>
 <body>
@@ -113,57 +125,24 @@
 	</ul>
 </div>
     	<!-- Contents영역 -->
-{% block content %}
+
     <div class="col-9 pt-3">
         	<h3>게시판 작성 - <small>자유게시판</small></h3>
+
+			<!-- Django 폼태그 적용 -->
         	<form method="post">
                 {% csrf_token %}
-            	<table class="table table-bordered">
-                    {{form.as_table}}
-            	<!--<colgroup>
+            	<table class="table table-bordered" id="writeTable">
+					<colgroup>
                 	<col width="20%"/>
                 	<col width="*"/>
             	</colgroup>
-            	 <tbody>
-                	<tr>
-                    	<th class="text-center"
-                        	style="vertical-align:middle;">작성자</th>
-                    	<td>
-                        	<input type="text" class="form-control"
-                            	style="width:100px;" />
-                    	</td>
-                	</tr>
-                	<tr>
-                    	<th class="text-center"
-                        	style="vertical-align:middle;">패스워드</th>
-                    	<td>
-                        	<input type="text" class="form-control"
-                            	style="width:200px;" />
-                    	</td>
-                	</tr>
-                	<tr>
-                    	<th class="text-center"
-                        	style="vertical-align:middle;">제목</th>
-                    	<td>
-                        	<input type="text" class="form-control" />
-                    	</td>
-                	</tr>
-                	<tr>
-                    	<th class="text-center"
-                        	style="vertical-align:middle;">내용</th>
-                    	<td>
-                        	<textarea rows="5" class="form-control"></textarea>
-                    	</td>
-                	</tr>
-                	<tr>
-                    	<th class="text-center"
-                        	style="vertical-align:middle;">첨부파일</th>
-                    	<td>
-                        	<input type="file" class="form-control" />
-                    	</td>
-                	</tr>
-            	</tbody> -->
-            	</table>
+				<tbody>
+					{% block content %}
+                    	{{form.as_table}}
+					{% endblock %}
+            	</tbody> 
+			</table>
 
             	<!-- 각종버튼 -->
             	<div class="row mb-3">
@@ -174,7 +153,6 @@
             	</div>
         	</form>
     	</div>
-        {% endblock %}
 	</div>
 
 	<!-- Copyright영역 -->

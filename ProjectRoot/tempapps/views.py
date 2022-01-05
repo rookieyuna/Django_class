@@ -74,20 +74,14 @@ def thanks(request):
 
 
 def boardWrite(request):
-    #진입시 전송방식이 POST라면 submit된 폼값을 처리한다.
     if request.method == 'POST':
+        template_path = 'boardWrite.html'
         form = BoardForm(request.POST)
-        # 폼값의 유효성 검증
         if form.is_valid():
-            #폼 데이터가 유효하면 클린데이터로 복사한다
             user_id = form.cleaned_data['user_id']
-            
-            #폼 데이터에 문제가 없다면 DB에 입력하거나 혹은 비즈니스 로직을 수행한다
-            
-            #return HttpResponseRedirect('/thanks/') #페이지 이동
             return render(request, 'thanks.html', {'user_id':user_id}) #템플릿 렌더링
-    else:
-        #전송방식이 GET이라면 입력폼으로 진입한다
+    else:   
         form = BoardForm()
-    #입력폼 진입을 위해 템플릿을 렌더링한다.
-    return render(request, 'boardWrite.html', {'form':form})
+        template_path = 'boardWrite.html'
+    
+    return render(request, template_path, {'form':form})
