@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +12,7 @@
     <style>
         div{border:0px solid blueviolet;}
         *{font-size: 12px;}
+        #paging li{display: inline;}
     </style>
 </head>
 <body>
@@ -169,21 +168,45 @@
             <div class="row mt-3">
                 <div class="col">
                     <ul class="pagination justify-content-center">
+                        <!-- 이전페이지 -->
+                        {% if postlist.has_previous %}
+                        <!-- <li class="page-item"><a class="page-link" href="#">
+                            <i class='bi bi-skip-backward-fill'></i></a></li> -->
+                        <li class="page-item"><a class="page-link" href="?page={{ postlist.previous_page_number }}">
+                            <i class='bi bi-skip-start-fill'></i></a></li>
+                        {% else %}
                         <li class="page-item"><a class="page-link" href="#">
-                            <i class='bi bi-skip-backward-fill'></i>
-                        </a></li>
-                        <li class="page-item"><a class="page-link" href="#">
-                            <i class='bi bi-skip-start-fill'></i>
-                        </a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">
-                            <i class='bi bi-skip-end-fill'></i>
-                        </a></li>
-                        <li class="page-item"><a class="page-link" href="#">
-                            <i class='bi bi-skip-forward-fill'></i>
-                        </a></li>
+                            <i class='bi bi-skip-start-fill'></i></a></li>
+                        {% endif %}
+
+                        <!-- 페이지리스트 -->
+                        {% for page_number in postlist.paginator.page_range %}
+                            {% if page_number >= postlist.number|add:-5 and page_number <= postlist.number|add:5 %}
+                                {% if page_number == postlist.number %}
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">{{ page_number }}</a>
+                                </li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                                </li>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <!-- 다음페이지 -->
+                        {% if postlist.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ postlist.next_page_number }}">
+                                <i class='bi bi-skip-end-fill'></i></a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="#"><i class='bi bi-skip-end-fill'></i></a>
+                        </li>
+                        {% endif %}
+                        <!-- <li class="page-item"><a class="page-link" href="#">
+                            <i class='bi bi-skip-forward-fill'></i></a></li> -->
                     </ul>
                 </div>
             </div>
@@ -193,7 +216,7 @@
     
 <div class="row border border-dark border-bottom-0 border-start-0 border-end-0 pt-2">
     <div class="col-2">
-          <h2>낙짜쌤&trade;</h2>
+          <h2>루키네&trade;</h2>
     </div>
     <div class="col-10">
           Email : 본인의&nbsp;&nbsp;
